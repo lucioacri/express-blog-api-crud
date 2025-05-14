@@ -2,6 +2,14 @@
   "name": "express-blog-intro",
   "version": "1.0.0",
   "description": "blog",
+  "homepage": "https://github.com/lucioacri/express-blog-api-crud#readme",
+  "bugs": {
+    "url": "https://github.com/lucioacri/express-blog-api-crud/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucioacri/express-blog-api-crud.git"
+  },
   "license": "ISC",
   "author": "Lucio Acri",
   "type": "commonjs",
@@ -13,5 +21,6 @@
   },
   "dependencies": {
     "express": "^5.1.0"
-  }
+  },
+  "devDependencies": {}
 }
