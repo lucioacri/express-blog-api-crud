@@ -5,7 +5,16 @@ const index = (req, res) => {
   if (req.query.tags) {
     filteredPosts = posts.filter((post) => post.tags.includes(req.query.tags));
     return res.json({
-      description: "Post filtrato",
+      description: "Post filtrati",
+      object: filteredPosts,
+    });
+  }
+  if (req.query.title) {
+    filteredPosts = posts.filter((post) =>
+      post.title.includes(req.query.title)
+    );
+    return res.json({
+      description: "Post filtrati",
       object: filteredPosts,
     });
   }
