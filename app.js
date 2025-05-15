@@ -12,5 +12,5 @@ app.get("/", (req, res) => {
 });
 
 app.use(express.static("public"));
-app.use("/bacheca", routerPosts);
 app.use(express.json());
+app.use("/bacheca", routerPosts);
