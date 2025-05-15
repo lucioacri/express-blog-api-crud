@@ -38,7 +38,7 @@ const show = (req, res) => {
   });
 };
 
-const create = (req, res) => {
+const store = (req, res) => {
   res.json({ Description: "Creazione del post", Object: "" });
 };
 
@@ -66,4 +66,4 @@ const destroy = (req, res) => {
   console.log(posts);
 };
 
-module.exports = { index, show, create, update, destroy };
+module.exports = { index, show, store, update, destroy };

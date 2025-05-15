@@ -9,7 +9,7 @@ router.get("/", postsController.index);
 router.get("/:id", postsController.show);
 
 // CREATE
-router.post("/", postsController.create);
+router.post("/", postsController.store);
 
 // UPDATE
 router.put("/:id", postsController.update);
