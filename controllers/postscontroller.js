@@ -39,6 +39,36 @@ const show = (req, res) => {
 };
 
 const store = (req, res) => {
+  const { title, content, image, tags } = req.body;
+
+  let hasErrors = false;
+  const errorsArray = [];
+
+  if (!title || typeof title !== "string" || title.length < 1) {
+    errorsArray.push("title");
+    hasErrors = true;
+  }
+  if (!content || typeof content !== "string" || content.length < 1) {
+    errorsArray.push("content");
+    hasErrors = true;
+  }
+  if (!image || typeof image !== "string" || image.length < 1) {
+    errorsArray.push("image");
+    hasErrors = true;
+  }
+  if (!Array.isArray(tags)) {
+    errorsArray.push("tags");
+    hasErrors = true;
+  }
+  if (hasErrors) {
+    res.status(400).json({
+      error: 400,
+      description: "Request has errors",
+      errorsArray,
+    });
+    return;
+  }
+
   res.json({ Description: "Creazione del post", Object: "" });
 };
 
