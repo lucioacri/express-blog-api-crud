@@ -25,8 +25,8 @@ const index = (req, res) => {
 };
 
 const show = (req, res) => {
-  const id = parseInt(req.params.id);
-  const post = posts.find((post) => post.id === id);
+  const postId = parseInt(req.params.id);
+  const post = posts.find((post) => post.id === postId);
   if (!post) {
     return res
       .status(404)
@@ -82,19 +82,54 @@ const store = (req, res) => {
 };
 
 const update = (req, res) => {
-  const id = parseInt(req.params.id);
-  const post = posts.find((post) => post.id === id);
+  // ID Control
+  const postId = parseInt(req.params.id);
+  const post = posts.find((post) => post.id === postId);
   if (!post) {
     return res
       .status(404)
       .json({ description: "Post not found", object: "Error 404" });
   }
-  res.json({ Description: "Aggiornamento del post " + id, Object: "" });
+  const { title, content, image, tags } = req.body;
+  // Post control
+
+  let hasErrors = false;
+  const errorsArray = [];
+
+  if (!title || typeof title !== "string" || title.length < 1) {
+    errorsArray.push("title");
+    hasErrors = true;
+  }
+  if (!content || typeof content !== "string" || content.length < 1) {
+    errorsArray.push("content");
+    hasErrors = true;
+  }
+  if (!image || typeof image !== "string" || image.length < 1) {
+    errorsArray.push("image");
+    hasErrors = true;
+  }
+  if (!Array.isArray(tags)) {
+    errorsArray.push("tags");
+    hasErrors = true;
+  }
+  if (hasErrors) {
+    res.status(400).json({
+      error: 400,
+      description: "Request has errors",
+      errorsArray,
+    });
+    return;
+  }
+  //
+  const updatedPost = { id: postId, title, content, image, tags };
+  const originalPostId = posts.indexOf(post);
+  posts.splice(originalPostId, 1, updatedPost);
+  res.json(updatedPost);
 };
 
 const destroy = (req, res) => {
-  const id = parseInt(req.params.id);
-  const post = posts.find((post) => post.id === id);
+  const postId = parseInt(req.params.id);
+  const post = posts.find((post) => post.id === postId);
   if (!post) {
     return res
       .status(404)
