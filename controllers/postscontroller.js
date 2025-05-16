@@ -111,12 +111,10 @@ const update = (req, res) => {
     hasErrors = true;
   }
   if (hasErrors) {
-    res.status(400).json({
-      error: 400,
-      description: "Request has errors",
-      errorsArray,
-    });
-    return;
+    const error = new Error("Request has errors");
+    error.statusCode = 400;
+    error.data = errorsArray;
+    throw error;
   }
   //
   const updatedPost = { id: postId, title, content, image, tags };
