@@ -28,9 +28,9 @@ const show = (req, res) => {
   const postId = parseInt(req.params.id);
   const post = posts.find((post) => post.id === postId);
   if (!post) {
-    return res
-      .status(404)
-      .json({ description: "Post not found", object: "Error 404" });
+    const error = new Error("Post not found");
+    error.statusCode = 404;
+    throw error;
   }
   res.json({
     Description: "Visualizzaziuone del post " + id,
@@ -84,9 +84,9 @@ const update = (req, res) => {
   const postId = parseInt(req.params.id);
   const post = posts.find((post) => post.id === postId);
   if (!post) {
-    return res
-      .status(404)
-      .json({ description: "Post not found", object: "Error 404" });
+    const error = new Error("Post not found");
+    error.statusCode = 404;
+    throw error;
   }
   const { title, content, image, tags } = req.body;
   // Post control
@@ -127,9 +127,9 @@ const destroy = (req, res) => {
   const postId = parseInt(req.params.id);
   const post = posts.find((post) => post.id === postId);
   if (!post) {
-    return res
-      .status(404)
-      .json({ description: "Post not found", object: "Error 404" });
+    const error = new Error("Post not found");
+    error.statusCode = 404;
+    throw error;
   }
   posts.splice(posts.indexOf(post), 1);
   res.sendStatus(204);
